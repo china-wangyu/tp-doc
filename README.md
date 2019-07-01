@@ -9,7 +9,7 @@ Website: https://github.com/china-wangyu/tp-doc
 ## `composer` 安装
  
 ```composer
-composer require WangYu/tp-doc
+composer require wangyu/tp-doc
 ```
 
 # 使用教程
