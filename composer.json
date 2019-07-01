@@ -1,0 +1,19 @@
+{
+  "name": "Tp/tp-doc",
+  "description": "基于ThinkPHP5.1做的API文档模型composer扩展",
+  "authors": [
+    {
+      "name": "wangyu",
+      "email": "china_wangyu@aliyun.com"
+    }
+  ],
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Tp\\": "src"
+    }
+  },
+  "require": {
+    "php": ">=7.1.0"
+  }
+}
