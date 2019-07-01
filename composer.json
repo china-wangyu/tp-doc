@@ -1,5 +1,5 @@
 {
-  "name": "WangYu/tp-doc",
+  "name": "wangyu/tp-doc",
   "description": "基于ThinkPHP5.1做的API文档模型composer扩展",
   "authors": [
     {
