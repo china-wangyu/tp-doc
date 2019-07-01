@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Created by User: wene<china_wangyu@aliyun.com> Date: 2019/7/1
+ */
 
 namespace WangYu\validate;
 
