@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Tp\lib;
+namespace WangYu\lib;
 
 
-use Tp\exception\MdException;
+use WangYu\exception\MdException;
 
 class Validate
 {

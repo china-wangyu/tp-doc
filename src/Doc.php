@@ -1,12 +1,17 @@
 <?php
 
 
-namespace Tp;
+namespace WangYu;
 
-use Tp\exception\MdException;
-use Tp\lib\Api;
-use Tp\lib\Reflex;
-use Tp\lib\Tool;
+use WangYu\exception\MdException;
+use WangYu\lib\Api;
+use WangYu\lib\Reflex;
+use WangYu\lib\Tool;
+
+/**
+ * Class Doc API文档生成
+ * @package WangYu
+ */
 class Doc
 {
     /**
@@ -32,7 +37,7 @@ class Doc
      * @param string $filename
      * @throws MdException
      */
-    public function __construct(string $module = 'api',string $filename = 'lin-cms-tp')
+    public function __construct(string $module = 'api',string $filename = 'api-md')
     {
         $this->setFilename($filename);
         $this->apis = (new Api($module))->get();
@@ -60,7 +65,7 @@ class Doc
     protected function setFilename(string $name = null):void
     {
         $name = trim($name);
-        $name = $name ?: 'lin-cms-tp-api-md-'.date('YmdHis');
+        $name = $name ?: 'api-md-'.date('YmdHis');
         $this->file = $name.'.md';
     }
 

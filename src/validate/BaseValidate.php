@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Tp\validate;
+namespace WangYu\validate;
 
 
-use Tp\exception\MdException;
+use WangYu\exception\MdException;
 use think\Validate;
 
 class BaseValidate extends Validate

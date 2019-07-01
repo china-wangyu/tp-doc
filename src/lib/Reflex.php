@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Tp\lib;
+namespace WangYu\lib;
 
 use think\Exception;
-use Tp\exception\MdException;
+use WangYu\exception\MdException;
 
 /**
  * Class Reflex 获取反射文档

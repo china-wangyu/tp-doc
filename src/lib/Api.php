@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Tp\lib;
+namespace WangYu\lib;
 
-use Tp\exception\MdException;
+use WangYu\exception\MdException;
 
 /**
  * Class Api 获取API模块下的接口文件

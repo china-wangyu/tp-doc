@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tp;
+namespace WangYu;
 
 use think\console\Input;
 use think\console\input\Argument;
@@ -9,6 +9,10 @@ use think\console\input\Option;
 use think\console\Output;
 use think\Exception;
 
+/**
+ * Class Command tp命令行模式，输出API文档
+ * @package WangYu
+ */
 class Command extends think\console\Command
 {
     /**
@@ -30,10 +34,10 @@ class Command extends think\console\Command
 
     protected function configure()
     {
-        $this->setName('lincms:markdown')
-            ->addArgument('module', Argument::OPTIONAL, "your LinCms API Folder,Examples: api = /application/api",'api')
-            ->addArgument('filename', Argument::OPTIONAL, "your LinCms API to markdown filename")
-            ->setDescription('LinCms API to Markdown');
+        $this->setName('doc:build')
+            ->addArgument('module', Argument::OPTIONAL, "your API Folder,Examples: api = /application/api",'api')
+            ->addArgument('filename', Argument::OPTIONAL, "your API to markdown filename",'api-md')
+            ->setDescription('API to Markdown');
     }
 
     protected function execute(Input $input, Output $output)
