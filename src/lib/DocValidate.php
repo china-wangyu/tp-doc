@@ -6,9 +6,9 @@
 namespace WangYu\lib;
 
 
-use WangYu\exception\MdException;
+use WangYu\exception\DocException;
 
-class Validate
+class DocValidate
 {
 
     public $validate = [];
@@ -18,7 +18,7 @@ class Validate
         if ($validate instanceof \Tp\validate\BaseValidate){
             $this->validate = $validate;
         }else{
-            throw new MdException(['message'=>'数据类型异常~']);
+            throw new DocException(['message'=>'数据类型异常~']);
         }
 
     }
@@ -26,7 +26,7 @@ class Validate
     /**
      * 获取rule数据
      * @return array|null
-     * @throws MdException
+     * @throws DocException
      */
     public function getRule():?array
     {
@@ -40,7 +40,7 @@ class Validate
             }
             return $result;
         }catch (\Exception $exception){
-            throw new MdException(['message'=>$exception->getMessage()]);
+            throw new DocException(['message'=>$exception->getMessage()]);
         }
     }
 

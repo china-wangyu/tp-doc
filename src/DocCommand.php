@@ -15,7 +15,7 @@ use think\Exception;
  * Class Command tp命令行模式，输出API文档
  * @package WangYu
  */
-class Command extends think\console\Command
+class DocCommand extends think\console\Command
 {
     /**
      * @var string $file 文件

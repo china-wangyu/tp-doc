@@ -6,14 +6,14 @@
 namespace WangYu\validate;
 
 
-use WangYu\exception\MdException;
+use WangYu\exception\DocException;
 use think\Validate;
 
 class BaseValidate extends Validate
 {
     /**
      * @return bool
-     * @throws MdException
+     * @throws DocException
      */
     public function goCheck()
     {
@@ -22,7 +22,7 @@ class BaseValidate extends Validate
         //对这些参数做校验
         $result = $this->batch()->check($params);
         if (!$result) {
-            throw new MdException(['message' => $this->error]);
+            throw new DocException(['message' => $this->error]);
         } else {
             return true;
         }

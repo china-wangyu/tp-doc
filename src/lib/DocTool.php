@@ -5,8 +5,8 @@
 
 namespace WangYu\lib;
 
-use WangYu\exception\MdException;
-trait Tool
+use WangYu\exception\DocException;
+trait DocTool
 {
 
     public static $EXT = '.php';
@@ -38,7 +38,7 @@ trait Tool
      * 创建目录，并设置权限
      * @param string $path
      * @return bool
-     * @throws MdException
+     * @throws DocException
      */
     public static function mkdir(string $path = ''){
         try{
@@ -48,7 +48,7 @@ trait Tool
             $res1 = chmod($path, 0777);
             return $res == $res1 && $res == 1 ? true: false;
         }catch (\Exception $exception){
-            throw new MdException(['message'=>$exception->getMessage()]);
+            throw new DocException(['message'=>$exception->getMessage()]);
         }
     }
 
@@ -58,7 +58,7 @@ trait Tool
      * @param string $dir 文件夹
      * @param string $ext 文件后缀
      * @return array|null
-     * @throws MdException
+     * @throws DocException
      * @throws \LinCmsTp5\exception\BaseException
      */
     public static function getDirFile(string $dir,string $ext = ''):?array
@@ -76,7 +76,7 @@ trait Tool
             }
             return $validateFileMap;
         }catch (\Exception $exception){
-            throw new MdException(['message'=>$exception->getMessage()]);
+            throw new DocException(['message'=>$exception->getMessage()]);
         }
     }
 
@@ -85,7 +85,7 @@ trait Tool
      * 获取文件对象
      * @param string $file
      * @return object|null
-     * @throws MdException
+     * @throws DocException
      * @throws \LinCmsTp5\exception\BaseException
      */
     public static function getClass(string $file):?object
@@ -96,7 +96,7 @@ trait Tool
             $namespace = str_replace('/','\\',$namespace);
             return new $namespace();
         }catch (\Exception $exception){
-            throw new MdException(['message'=>$exception->getMessage()]);
+            throw new DocException(['message'=>$exception->getMessage()]);
         }
     }
 
@@ -114,7 +114,7 @@ trait Tool
      * 获取php文件方法
      * @param $object
      * @return array|null
-     * @throws MdException
+     * @throws DocException
      */
     public static function getPhpAction($object):?array
     {
@@ -125,7 +125,7 @@ trait Tool
             $actions = array_diff($objectActions, $parentActions);
             return empty($actions) ? [] : $actions;
         }catch (\Exception $exception){
-            throw new MdException(['message'=>$exception->getMessage()]);
+            throw new DocException(['message'=>$exception->getMessage()]);
         }
     }
 
@@ -143,7 +143,7 @@ trait Tool
      * @param string $model
      * @param array $fileMap
      * @return string|null
-     * @throws MdException
+     * @throws DocException
      */
     public static function getValidateFile(string $model,array $fileMap = []):?string {
         try{
@@ -153,7 +153,7 @@ trait Tool
             $controller = strstr(request()->controller(),'.') ?
                 explode('.',request()->controller())[1]:
                 request()->controller();
-            $groupValidateFile = Tool::getValidateRootPath().DIRECTORY_SEPARATOR.
+            $groupValidateFile = DocTool::getValidateRootPath().DIRECTORY_SEPARATOR.
                 strtolower($controller).DIRECTORY_SEPARATOR.$model.$ext;
             if(in_array($groupValidateFile,$fileMap)) return $groupValidateFile;
             // 检测验证器目录下所有的验证器，是否有同名的验证器
@@ -163,7 +163,7 @@ trait Tool
             }
             return null;
         }catch (\Exception $exception){
-            throw new MdException(['message'=>$exception->getMessage()]);
+            throw new DocException(['message'=>$exception->getMessage()]);
         }
     }
 

@@ -6,13 +6,13 @@
 namespace WangYu\lib;
 
 use think\Exception;
-use WangYu\exception\MdException;
+use WangYu\exception\DocException;
 
 /**
  * Class Reflex 获取反射文档
  * @package LinCmsTp\lib
  */
-class Reflex extends \WangYu\Reflex
+class DocReflex extends \WangYu\Reflex
 {
 
     public static function toReflex(array $api):?array
@@ -28,7 +28,7 @@ class Reflex extends \WangYu\Reflex
             }
             return $result;
         }catch (\Exception $exception){
-            throw new MdException(['message'=>$exception->getMessage()]);
+            throw new DocException(['message'=>$exception->getMessage()]);
         }
     }
 
@@ -67,7 +67,7 @@ class Reflex extends \WangYu\Reflex
                     $validate = $Reflex->get('validate', ['validateModel']);
                     if(empty($route) and empty($params) and empty($validate)) continue;
                     if(!empty($validate)){
-                        $params = Parse::getValidate($validate[0]['validateModel']);
+                        $params = DocParse::getValidate($validate[0]['validateModel']);
                     }
                     array_push($result,[$item=>['route'=>$route,'params'=>$params]]);
                 }

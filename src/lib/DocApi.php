@@ -5,13 +5,13 @@
 
 namespace WangYu\lib;
 
-use WangYu\exception\MdException;
+use WangYu\exception\DocException;
 
 /**
  * Class Api 获取API模块下的接口文件
  * @package LinCmsTp\lib
  */
-class Api
+class DocApi
 {
     protected $module;
 
@@ -28,7 +28,7 @@ class Api
     /**
      * 获取模块下的API集合
      * @return array|null
-     * @throws MdException
+     * @throws DocException
      * @throws \LinCmsTp5\exception\BaseException
      */
     public function get():?array
@@ -36,7 +36,7 @@ class Api
         try{
             return $this->getApi(env('APP_PATH').$this->module.'/controller');
         }catch (\Exception $exception){
-            throw new MdException(['message'=>$exception->getMessage()]);
+            throw new DocException(['message'=>$exception->getMessage()]);
         }
     }
 
@@ -44,11 +44,11 @@ class Api
      * 获取API列表
      * @param string $path
      * @return array|null
-     * @throws MdException
+     * @throws DocException
      */
     protected function getApi(string $path):?array
     {
-        $files = Tool::getDirFile($path);
+        $files = DocTool::getDirFile($path);
         return $this->getApiAction($files);
     }
 
@@ -64,9 +64,9 @@ class Api
             $actions = $filename = [];
             if(empty($files) or !is_array($files))return $actions;
             foreach ($files as $key => $file) {
-                $object = Tool::getClass($file);
-                $action = Tool::getPhpAction($object);
-                if(!empty($action)) $actions[Tool::getClassNamespace($object)] = $action;
+                $object = DocTool::getClass($file);
+                $action = DocTool::getPhpAction($object);
+                if(!empty($action)) $actions[DocTool::getClassNamespace($object)] = $action;
             }
             return $actions;
         }catch (\Exception $exception){

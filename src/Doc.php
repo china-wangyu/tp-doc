@@ -5,10 +5,10 @@
 
 namespace WangYu;
 
-use WangYu\exception\MdException;
-use WangYu\lib\Api;
-use WangYu\lib\Reflex;
-use WangYu\lib\Tool;
+use WangYu\exception\DocException;
+use WangYu\lib\DocApi;
+use WangYu\lib\DocReflex;
+use WangYu\lib\DocTool;
 
 /**
  * Class Doc API文档生成
@@ -37,18 +37,18 @@ class Doc
      * Doc constructor.初始化
      * @param string $module
      * @param string $filename
-     * @throws MdException
+     * @throws DocException
      */
     public function __construct(string $module = 'api',string $filename = 'api-md')
     {
         $this->setFilename($filename);
-        $this->apis = (new Api($module))->get();
-        $this->apis = Reflex::toReflex($this->apis);
+        $this->apis = (new DocApi($module))->get();
+        $this->apis = DocReflex::toReflex($this->apis);
     }
 
     /**
      * 执行
-     * @throws MdException
+     * @throws DocException
      */
     public function execute()
     {
@@ -56,7 +56,7 @@ class Doc
             $this->writeToc();
             $this->writeApi();
         }catch (\Exception $exception){
-            throw new MdException(['message'=>'生成文档失败~，'.$exception->getMessage()]);
+            throw new DocException(['message'=>'生成文档失败~，'.$exception->getMessage()]);
         }
     }
 
@@ -78,7 +78,7 @@ class Doc
      */
     protected function write(string $file,string $content):void
     {
-        Tool::write($file,$content);
+        DocTool::write($file,$content);
     }
 
     /**
@@ -89,11 +89,11 @@ class Doc
         $content = $this->format(' API文档[TOC]');
         try{
             foreach ($this->apis as $api){
-                $this->dp = '- '; $content .= $this->formatToc(Tool::substr($api['doc']));
+                $this->dp = '- '; $content .= $this->formatToc(DocTool::substr($api['doc']));
                 foreach ($api['actions'] as $action){
                     $this->dp = '   - '; $this->ds = PHP_EOL;
-                    $content .= $this->formatToc(Tool::substr($action['action']).':'.
-                        Tool::substr($action['doc']));
+                    $content .= $this->formatToc(DocTool::substr($action['action']).':'.
+                        DocTool::substr($action['doc']));
                 }
             }
             $this->write($this->file,$content);
@@ -114,7 +114,7 @@ class Doc
             $this->dp = '# ';
             $content = $this->format(' API文档内容');
             foreach ($this->apis as $api){
-                $this->dp = '## '; $content .= $this->format(Tool::substr($api['doc']));
+                $this->dp = '## '; $content .= $this->format(DocTool::substr($api['doc']));
                 foreach ($api['actions'] as $action){
                     $content .= $this->writeAction($action);
                 }
@@ -134,7 +134,7 @@ class Doc
     {
         try{
             $this->dp = '### ';
-            $content = $this->format(Tool::substr($action['action']).':'.Tool::substr($action['doc']));
+            $content = $this->format(DocTool::substr($action['action']).':'.DocTool::substr($action['doc']));
             $this->dp = '- ';
             $content .= $this->format('[url] : `'.$action['route']['rule'].'`');
             $content .= $this->format('[method] : `'.$action['route']['method'].'`');

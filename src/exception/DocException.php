@@ -6,7 +6,7 @@
 namespace WangYu\exception;
 
 
-class MdException extends \Exception
+class DocException extends \Exception
 {
     public $code = 400;
     public $message = '创建Md接口文档错误';
