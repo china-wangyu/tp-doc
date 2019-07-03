@@ -6,6 +6,11 @@
 namespace WangYu\lib;
 
 use WangYu\exception\DocException;
+
+/**
+ * Trait DocTool 工具类
+ * @package WangYu\lib
+ */
 trait DocTool
 {
 

@@ -8,6 +8,10 @@ namespace WangYu\lib;
 
 use WangYu\exception\DocException;
 
+/**
+ * Class DocValidate 验证类
+ * @package WangYu\lib
+ */
 class DocValidate
 {
 

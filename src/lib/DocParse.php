@@ -8,6 +8,11 @@ namespace WangYu\lib;
 
 use WangYu\exception\DocException;
 
+
+/**
+ * Class DocParse 解析类
+ * @package WangYu\lib
+ */
 class DocParse
 {
     public static function getValidate(string $validate):?array

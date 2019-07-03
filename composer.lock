@@ -1,0 +1,106 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "198ba912a6ddac269bc1626f6b996d44",
+    "packages": [
+        {
+            "name": "wangyu/reflex-core",
+            "version": "0.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/china-wangyu/php-reflex-core.git",
+                "reference": "6c04872fd67713be03d05fdbc4a1e81048603a8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/china-wangyu/php-reflex-core/zipball/6c04872fd67713be03d05fdbc4a1e81048603a8d",
+                "reference": "6c04872fd67713be03d05fdbc4a1e81048603a8d",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WangYu\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "wangyu",
+                    "email": "china_wangyu@aliyun.com"
+                }
+            ],
+            "description": "原生PHP的reflex反射注释模型composer扩展",
+            "time": "2019-06-04T03:23:55+00:00"
+        },
+        {
+            "name": "wangyu/tp-exception",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/china-wangyu/tp-exception.git",
+                "reference": "b322cbac2efa8863164b5a989053d2e17d334535"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/china-wangyu/tp-exception/zipball/b322cbac2efa8863164b5a989053d2e17d334535",
+                "reference": "b322cbac2efa8863164b5a989053d2e17d334535",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WangYu\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "wangyu",
+                    "email": "china_wangyu@aliyun.com"
+                }
+            ],
+            "description": "TP5.1 的异常核心类，含多异常输出，异常类型判断",
+            "time": "2019-07-03T08:56:43+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "wangyu/tp-exception": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.1.0"
+    },
+    "platform-dev": []
+}
