@@ -116,7 +116,7 @@ class Doc
             foreach ($this->apis as $api){
                 $this->dp = '## '; $content .= $this->format(DocTool::substr($api['doc']));
                 foreach ($api['actions'] as $action){
-                    $content .= $this->writeAction($action);
+                    $content .= $this->writeAction($api,$action);
                 }
             }
             $this->write($this->file,$content);
@@ -131,13 +131,13 @@ class Doc
      * @return string
      * @throws \Exception
      */
-    protected function writeAction(array $action = []):string
+    protected function writeAction(array $api,array $action = []):string
     {
         try{
             $this->dp = '### ';
             $content = $this->format(DocTool::substr($action['action']).':'.DocTool::substr($action['doc']));
             $this->dp = '- ';
-            $content .= $this->format('[url] : `'.$action['route']['rule'].'`');
+            $content .= $this->format('[url] : `/'.$api['rule'].'/'.$action['route']['rule'].'/`');
             $content .= $this->format('[method] : `'.$action['route']['method'].'`');
             $content .= $this->format('[params] : `参数文档`');
             $this->dp = ''; $this->ds = PHP_EOL;
