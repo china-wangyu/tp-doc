@@ -137,7 +137,7 @@ class Doc
             $this->dp = '### ';
             $content = $this->format(DocTool::substr($action['action']).':'.DocTool::substr($action['doc']));
             $this->dp = '- ';
-            $content .= $this->format('[url] : `/'.$api['rule'].'/'.$action['route']['rule'].'/`');
+            $content .= $this->format('[url] : `/'.$api['route'].'/'.$action['route']['rule'].'/`');
             $content .= $this->format('[method] : `'.$action['route']['method'].'`');
             $content .= $this->format('[params] : `参数文档`');
             $this->dp = ''; $this->ds = PHP_EOL;
