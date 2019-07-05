@@ -98,7 +98,7 @@ class Doc
             }
             $this->write($this->file,$content);
         }catch (\Exception $exception){
-            throw new Exception($exception->getMessage());
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -121,7 +121,7 @@ class Doc
             }
             $this->write($this->file,$content);
         }catch (\Exception $exception){
-            throw new Exception($exception->getMessage());
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -129,6 +129,7 @@ class Doc
      * 写入方法
      * @param array $action
      * @return string
+     * @throws \Exception
      */
     protected function writeAction(array $action = []):string
     {
@@ -149,7 +150,7 @@ class Doc
             $this->ds = PHP_EOL.PHP_EOL;
             return $content;
         }catch (\Exception $exception){
-            throw new Exception($exception->getMessage());
+            throw new \Exception($exception->getMessage());
         }
     }
 

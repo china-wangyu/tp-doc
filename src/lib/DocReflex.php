@@ -24,7 +24,7 @@ class DocReflex extends \WangYu\Reflex
                 $action = static::getApiActions(new $key(),$actions);
                 $doc = static::getApiClass(new $key());
                 if(empty($action)) continue;
-                array_push($result,['class'=>$key,'doc'=>$doc,'actions'=>$action]);
+                $result[$key] = array_merge(['class'=>$key,'actions'=>$action],$doc);
             }
             return $result;
         }catch (\Exception $exception){
@@ -32,6 +32,12 @@ class DocReflex extends \WangYu\Reflex
         }
     }
 
+    /**
+     * 获取类反射内容
+     * @param $object
+     * @return array|string
+     * @throws \Exception
+     */
     public static function getApiClass($object)
     {
         try{
@@ -39,12 +45,18 @@ class DocReflex extends \WangYu\Reflex
             if (is_object($object)){
                 $reflex = new static($object);
                 ($reflex)->reflex->getDocComment();
-                $result = $reflex->get('doc',['doc']);
-                $result = isset($result[0]['doc']) ? $result[0]['doc'] : get_class($object);
+                $doc = $reflex->get('doc',['doc']);
+                $route = $reflex->get('route',['rule']);
+                $middleware = $reflex->get('middleware',[]);
+                $result = [
+                    'doc' => $doc[0]['doc'] ?? basename(get_class($object)),
+                    'route' => $route[0]['rule'] ?? '',
+                    'middleware' => $middleware[0] ?? []
+                ];
             }
             return $result;
         }catch (\Exception $exception){
-            throw new Exception($exception->getMessage());
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -53,7 +65,7 @@ class DocReflex extends \WangYu\Reflex
      * @param $object
      * @param array $actions
      * @return array
-     * @throws Exception
+     * @throws DocException
      */
     public static function getApiActions($object,array $actions = []):array
     {
@@ -62,6 +74,7 @@ class DocReflex extends \WangYu\Reflex
             if (is_object($object)){
                 foreach ($actions as $key => $item){
                     $Reflex = new static($object,$item);
+                    $doc = $Reflex->get('doc', ['doc']);
                     $route = $Reflex->get('route', ['rule', 'method']);
                     $params = $Reflex->get('param', ['name','doc','rule']);
                     $validate = $Reflex->get('validate', ['validateModel']);
@@ -69,12 +82,17 @@ class DocReflex extends \WangYu\Reflex
                     if(!empty($validate)){
                         $params = DocParse::getValidate($validate[0]['validateModel']);
                     }
-                    array_push($result,[$item=>['route'=>$route,'params'=>$params]]);
+                    $result[$item] = [
+                        'action' => $item,
+                        'doc' => $doc[0]['doc'] ?? '',
+                        'route' => $route[0] ?? ['rule'=>'','method'=>''],
+                        'params' => $params ?? []
+                    ];
                 }
             }
             return $result;
         }catch (\Exception $exception){
-            throw new Exception($exception->getMessage());
+            throw new \Exception($exception->getMessage());
         }
     }
 }
