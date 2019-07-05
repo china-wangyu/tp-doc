@@ -89,7 +89,8 @@ class Doc
         $content = $this->format(' API文档[TOC]');
         try{
             foreach ($this->apis as $api){
-                $this->dp = '- '; $content .= $this->formatToc(DocTool::substr($api['doc']));
+                $this->dp = '- '; $content .= $this->formatToc(DocTool::substr($api['class']).':'.
+                    DocTool::substr($api['doc']));
                 foreach ($api['actions'] as $action){
                     $this->dp = '   - '; $this->ds = PHP_EOL;
                     $content .= $this->formatToc(DocTool::substr($action['action']).':'.
@@ -114,7 +115,8 @@ class Doc
             $this->dp = '# ';
             $content = $this->format(' API文档内容');
             foreach ($this->apis as $api){
-                $this->dp = '## '; $content .= $this->format(DocTool::substr($api['doc']));
+                $this->dp = '- '; $content .= $this->formatToc(DocTool::substr($api['class']).':'.
+                    DocTool::substr($api['doc']));
                 foreach ($api['actions'] as $action){
                     $content .= $this->writeAction($api,$action);
                 }
