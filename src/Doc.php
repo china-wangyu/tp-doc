@@ -89,7 +89,8 @@ class Doc
         $content = $this->format(' API文档[TOC]');
         try{
             foreach ($this->apis as $api){
-                $this->dp = '- '; $content .= $this->formatToc(DocTool::substr($api['doc']));
+                $this->dp = '- '; $content .= $this->formatToc(DocTool::substr($api['class']).':'.
+                    DocTool::substr($api['doc']));
                 foreach ($api['actions'] as $action){
                     $this->dp = '   - '; $this->ds = PHP_EOL;
                     $content .= $this->formatToc(DocTool::substr($action['action']).':'.
@@ -98,7 +99,7 @@ class Doc
             }
             $this->write($this->file,$content);
         }catch (\Exception $exception){
-            throw new Exception($exception->getMessage());
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -114,14 +115,15 @@ class Doc
             $this->dp = '# ';
             $content = $this->format(' API文档内容');
             foreach ($this->apis as $api){
-                $this->dp = '## '; $content .= $this->format(DocTool::substr($api['doc']));
+                $this->dp = '- '; $content .= $this->formatToc(DocTool::substr($api['class']).':'.
+                    DocTool::substr($api['doc']));
                 foreach ($api['actions'] as $action){
-                    $content .= $this->writeAction($action);
+                    $content .= $this->writeAction($api,$action);
                 }
             }
             $this->write($this->file,$content);
         }catch (\Exception $exception){
-            throw new Exception($exception->getMessage());
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -129,14 +131,15 @@ class Doc
      * 写入方法
      * @param array $action
      * @return string
+     * @throws \Exception
      */
-    protected function writeAction(array $action = []):string
+    protected function writeAction(array $api,array $action = []):string
     {
         try{
             $this->dp = '### ';
             $content = $this->format(DocTool::substr($action['action']).':'.DocTool::substr($action['doc']));
             $this->dp = '- ';
-            $content .= $this->format('[url] : `'.$action['route']['rule'].'`');
+            $content .= $this->format('[url] : `/'.$api['route'].'/'.$action['route']['rule'].'`');
             $content .= $this->format('[method] : `'.$action['route']['method'].'`');
             $content .= $this->format('[params] : `参数文档`');
             $this->dp = ''; $this->ds = PHP_EOL;
@@ -149,7 +152,7 @@ class Doc
             $this->ds = PHP_EOL.PHP_EOL;
             return $content;
         }catch (\Exception $exception){
-            throw new Exception($exception->getMessage());
+            throw new \Exception($exception->getMessage());
         }
     }
 
