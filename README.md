@@ -77,7 +77,7 @@ composer require wangyu/tp-doc
     <?php
     return [
         // API文档输出
-        'doc:build'	=>	'WangYu/Command',
+        'trr:build'	=>	'WangYu/DocCommand',
     ];
   ```
   -  运行 `doc:build` 命令
