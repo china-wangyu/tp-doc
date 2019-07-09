@@ -19,7 +19,7 @@ class DocValidate
 
     public function __construct($validate)
     {
-        if ($validate instanceof \Tp\validate\BaseValidate){
+        if ($validate instanceof \WangYu\validate\BaseValidate){
             $this->validate = $validate;
         }else{
             throw new DocException(['message'=>'数据类型异常~']);
@@ -30,7 +30,7 @@ class DocValidate
     /**
      * 获取rule数据
      * @return array|null
-     * @throws DocException
+     * @throws \Exception
      */
     public function getRule():?array
     {
@@ -44,7 +44,7 @@ class DocValidate
             }
             return $result;
         }catch (\Exception $exception){
-            throw new DocException(['message'=>$exception->getMessage()]);
+            throw new \Exception(['message'=>$exception->getMessage()]);
         }
     }
 

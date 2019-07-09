@@ -29,7 +29,6 @@ class DocApi
      * 获取模块下的API集合
      * @return array|null
      * @throws DocException
-     * @throws \LinCmsTp5\exception\BaseException
      */
     public function get():?array
     {

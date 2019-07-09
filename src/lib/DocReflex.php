@@ -65,7 +65,7 @@ class DocReflex extends \WangYu\Reflex
      * @param $object
      * @param array $actions
      * @return array
-     * @throws DocException
+     * @throws \Exception
      */
     public static function getApiActions($object,array $actions = []):array
     {

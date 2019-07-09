@@ -22,7 +22,8 @@ class DocParse
             $fileMap = DocTool::getDirFile(DocTool::getValidateRootPath());
             $file = DocTool::getValidateFile($validate,$fileMap);
             if ($file == null) return $file;
-            $validate = str_replace(env('APP_PATH'),env('APP_NAMESPACE').'/',trim($file,DocTool::$EXT));
+            $validate= str_replace(DocTool::$EXT,'',$file);
+            $validate = str_replace(env('APP_PATH'),env('APP_NAMESPACE').'/',$validate);
             $validate = str_replace('/','\\',$validate);
             $rule = (new DocValidate(new $validate()))->getRule();
             return $rule;
