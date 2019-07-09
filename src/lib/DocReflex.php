@@ -89,8 +89,8 @@ class DocReflex extends \WangYu\Reflex
                         'doc' => $doc[0]['doc'] ?? '',
                         'route' => $route[0] ?? ['rule'=>'','method'=>''],
                         'params' => $params ?? [],
-                        'error' => $error[0]['result'] ?? [],
-                        'success' => $success[0]['result'] ?? [],
+                        'error' => $error[0]['result'] ?? '',
+                        'success' => $success[0]['result'] ?? '',
                     ];
                 }
             }
