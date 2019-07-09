@@ -5,6 +5,9 @@
 
 namespace WangYu\lib;
 
+use think\Exception;
+use WangYu\exception\DocException;
+
 /**
  * Class Reflex 获取反射文档
  * @package LinCmsTp\lib
@@ -12,26 +15,20 @@ namespace WangYu\lib;
 class DocReflex extends \WangYu\Reflex
 {
 
-    /**
-     * 文件转反射数据
-     * @param array $api
-     * @return array|null
-     * @throws \Exception
-     */
     public static function toReflex(array $api):?array
     {
         try{
             $result = $action = [];
             if (empty($api) or !is_array($api)) return [];
             foreach ($api as $key => $actions){
-                $action = static::getApiActions(new $key(),$actions);
                 $doc = static::getApiClass(new $key());
+                $action = static::getApiActions(new $key(),$actions);
                 if(empty($action)) continue;
                 $result[$key] = array_merge(['class'=>$key,'actions'=>$action],$doc);
             }
             return $result;
         }catch (\Exception $exception){
-            throw new \Exception($exception->getMessage());
+            throw new DocException(['message'=>$exception->getMessage()]);
         }
     }
 
@@ -81,6 +78,8 @@ class DocReflex extends \WangYu\Reflex
                     $route = $Reflex->get('route', ['rule', 'method']);
                     $params = $Reflex->get('param', ['name','doc','rule']);
                     $validate = $Reflex->get('validate', ['validateModel']);
+                    $error = $Reflex->get('error', ['result']);
+                    $success = $Reflex->get('success', ['result']);
                     if(empty($route) and empty($params) and empty($validate)) continue;
                     if(!empty($validate)){
                         $params = DocParse::getValidate($validate[0]['validateModel']);
@@ -89,7 +88,9 @@ class DocReflex extends \WangYu\Reflex
                         'action' => $item,
                         'doc' => $doc[0]['doc'] ?? '',
                         'route' => $route[0] ?? ['rule'=>'','method'=>''],
-                        'params' => $params ?? []
+                        'params' => $params ?? [],
+                        'error' => $error[0]['result'] ?? [],
+                        'success' => $success[0]['result'] ?? [],
                     ];
                 }
             }

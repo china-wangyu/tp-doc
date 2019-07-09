@@ -46,24 +46,27 @@ composer require wangyu/tp-doc
     
    反射标识说明：
     
-   | 名称 | 注释 | 使用说明 |
+   | 函数名称 | 注释 | 使用说明 |
    | :----: | :----: | :----: |
    | doc | 文档说明 | @doc('方法名称') |
    | route | 路由规则 | @route('规则','请求类型') |
    | param | 参数验证 | @param('参数名称','参数注释','参数验证规则') |
    | validate | 验证模型验证,需要继承 `\WangYu\validate\BaseValidate` | @validate('模型名称') |
+   | error | 错误返回 | @error('错误返回的`JSON`数据') |
+   | success | 正确返回 | @success('正确返回的`JSON`数据') |
     
    ```php
     /**
-    * 配置hidden后，这个权限信息不会挂载到权限图，获取所有可分配的权限时不会显示这个权限
-    * @doc('获取所有可分配的权限')
-    * @route('cms/admin/users','get')
-    * @param('group_id','分组ID','require')
-    * @param Request $request
-    * @return array
-    * @throws \think\exception\DbException
-    */
-    public function getAdminUsers(Request $request){.....}
+     * @doc('创建图书')
+     * @route('','post')
+     * @validate('CreateGroup')
+     * @param('name','图书名称','require|graph|length:1,50')
+     * @param('img','图书img','require|graph|length:1,16')
+     * @success('{"code":200,"msg":"操作成功","data":[]}')
+     * @error('{"code":400,"msg":"appSecret不能为空","data":[]}')
+     * @return array
+     */
+    public function create(){#......}
    ```
 
 ### 输出API文档

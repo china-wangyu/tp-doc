@@ -72,7 +72,7 @@ class Doc
     {
         $name = trim($name);
         $name = $name ?: 'api-md-'.date('YmdHis');
-        $this->file = $name.'.md';
+        $this->file = env('ROOT_PATH').$name.'.md';
     }
 
     /**
@@ -90,7 +90,7 @@ class Doc
      */
     protected function writeToc():void
     {
-        $content = $this->format(' API文档[TOC]');
+        $content = $this->format(' API文档目录');
         try{
             foreach ($this->apis as $api){
                 $this->dp = '- '; $content .= $this->formatToc(DocTool::substr($api['class']).':'.
@@ -141,18 +141,13 @@ class Doc
     {
         try{
             $this->dp = '### ';
-            $content = $this->format(DocTool::substr($action['action']).':'.DocTool::substr($action['doc']));
+            $content = $this->writeDoc($action['action'],$action['doc']);
             $this->dp = '- ';
-            $content .= $this->format('[url] : `/'.$api['route'].'/'.$action['route']['rule'].'`');
-            $content .= $this->format('[method] : `'.$action['route']['method'].'`');
-            $content .= $this->format('[params] : `参数文档`');
-            $this->dp = ''; $this->ds = PHP_EOL;
-            $content .= $this->format('| 参数名称 | 参数文档 | 参数 `filter` | 参数默认 |');
-            $content .= $this->format('| :----: | :----: | :----: | :----: |');
-            foreach ($action['params'] as $param){
-                $content .= $this->format('| '.$param['name'].' | '.$param['doc'].' | '.
-                    str_replace('|','#',$param['rule']).' | 保留字段 |');
-            }
+            $content .= $this->writeUrl($api['route'],$action['route']['rule']);
+            $content .= $this->writeMethod($action['route']['method']);
+            $content .= $this->writeParam($action['params']);
+            $content .= $this->writeError($action['error']);
+            $content .= $this->writeSuccess($action['success']);
             $this->ds = PHP_EOL.PHP_EOL;
             return $content;
         }catch (\Exception $exception){
@@ -160,17 +155,47 @@ class Doc
         }
     }
 
-
-
-    /**
-     * 写文档标识
-     */
-    protected function writeFlag():void
-    {
-
+    // 写方法注释
+    protected function writeDoc($action,$doc){
+        return $this->format(DocTool::substr($action).':'.DocTool::substr($doc));
     }
 
+    // 写方法URL
+    protected function writeUrl($route,$rule){
+        return $this->format('[url] : `/'.$route.'/'.$rule.'`');
+    }
 
+    // 写方法请求类型
+    protected function writeMethod($method){
+        return $this->format('[method] : `'.$method.'`');
+    }
+
+    // 写方法请求参数
+    protected function writeParam($params){
+        $content = $this->format('[params] : `请求参数文档`');
+        $this->dp = ''; $this->ds = PHP_EOL;
+        $content .= $this->format('| 参数名称 | 参数文档 | 参数 `filter` | 参数默认 |');
+        $content .= $this->format('| :----: | :----: | :----: | :----: |');
+        foreach ($params as $param){
+            $content .= $this->format('| '.$param['name'].' | '.$param['doc'].' | '.
+                str_replace('|','#',$param['rule']).' | 保留字段 |');
+        }
+        return $content;
+    }
+
+    // 写方法错误返回
+    protected function writeError($json){
+        $content = $this->format('- [error] : `错误返回样例`');
+        $content .= $this->format('```json5'.PHP_EOL.$json.PHP_EOL.'```');
+        return $content;
+    }
+
+    // 写方法正确返回
+    protected function writeSuccess($json){
+        $content = $this->format('- [success] : `成功返回样例`');
+        $content .= $this->format('```json5'.PHP_EOL.$json.PHP_EOL.'```');
+        return $content;
+    }
 
     /**
      * 格式化内容文档
