@@ -51,7 +51,7 @@ composer require wangyu/tp-doc
    | doc | 文档说明 | @doc('方法名称') |
    | route | 路由规则 | @route('规则','请求类型') |
    | param | 参数验证 | @param('参数名称','参数注释','参数验证规则') |
-   | validate | 验证模型验证 | @validate('模型名称') |
+   | validate | 验证模型验证,需要继承 `\WangYu\validate\BaseValidate` | @validate('模型名称') |
     
    ```php
     /**
