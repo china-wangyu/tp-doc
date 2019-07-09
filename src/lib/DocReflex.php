@@ -5,9 +5,6 @@
 
 namespace WangYu\lib;
 
-use think\Exception;
-use WangYu\exception\DocException;
-
 /**
  * Class Reflex 获取反射文档
  * @package LinCmsTp\lib
@@ -15,6 +12,12 @@ use WangYu\exception\DocException;
 class DocReflex extends \WangYu\Reflex
 {
 
+    /**
+     * 文件转反射数据
+     * @param array $api
+     * @return array|null
+     * @throws \Exception
+     */
     public static function toReflex(array $api):?array
     {
         try{
@@ -28,7 +31,7 @@ class DocReflex extends \WangYu\Reflex
             }
             return $result;
         }catch (\Exception $exception){
-            throw new DocException(['message'=>$exception->getMessage()]);
+            throw new \Exception($exception->getMessage());
         }
     }
 

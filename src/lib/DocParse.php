@@ -6,9 +6,6 @@
 namespace WangYu\lib;
 
 
-use WangYu\exception\DocException;
-
-
 /**
  * Class DocParse 解析类
  * @package WangYu\lib
@@ -29,7 +26,7 @@ class DocParse
             return $rule;
 
         }catch (\Exception $exception){
-            throw new DocException(['message'=>'创建文档失败,'.$exception->getMessage()]);
+            throw new \Exception('创建文档失败,'.$exception->getMessage());
         }
     }
 

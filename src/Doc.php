@@ -34,16 +34,20 @@ class Doc
     protected $ds = PHP_EOL.PHP_EOL;
 
     /**
-     * Doc constructor.初始化
+     * Doc constructor.
      * @param string $module
      * @param string $filename
-     * @throws DocException
+     * @throws \Exception
      */
     public function __construct(string $module = 'api',string $filename = 'api-md')
     {
-        $this->setFilename($filename);
-        $this->apis = (new DocApi($module))->get();
-        $this->apis = DocReflex::toReflex($this->apis);
+        try{
+            $this->setFilename($filename);
+            $this->apis = (new DocApi($module))->get();
+            $this->apis = DocReflex::toReflex($this->apis);
+        }catch (\Exception $exception){
+            throw new DocException(['message'=>'初始化数据失败~，'.$exception->getMessage()]);
+        }
     }
 
     /**

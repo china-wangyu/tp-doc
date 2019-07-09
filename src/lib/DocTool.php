@@ -5,7 +5,6 @@
 
 namespace WangYu\lib;
 
-use WangYu\exception\DocException;
 
 /**
  * Trait DocTool 工具类
@@ -43,7 +42,7 @@ trait DocTool
      * 创建目录，并设置权限
      * @param string $path
      * @return bool
-     * @throws DocException
+     * @throws \Exception
      */
     public static function mkdir(string $path = ''){
         try{
@@ -53,7 +52,7 @@ trait DocTool
             $res1 = chmod($path, 0777);
             return $res == $res1 && $res == 1 ? true: false;
         }catch (\Exception $exception){
-            throw new DocException(['message'=>$exception->getMessage()]);
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -63,8 +62,7 @@ trait DocTool
      * @param string $dir 文件夹
      * @param string $ext 文件后缀
      * @return array|null
-     * @throws DocException
-     * @throws \LinCmsTp5\exception\BaseException
+     * @throws \Exception
      */
     public static function getDirFile(string $dir,string $ext = ''):?array
     {
@@ -81,7 +79,7 @@ trait DocTool
             }
             return $validateFileMap;
         }catch (\Exception $exception){
-            throw new DocException(['message'=>$exception->getMessage()]);
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -90,8 +88,7 @@ trait DocTool
      * 获取文件对象
      * @param string $file
      * @return object|null
-     * @throws DocException
-     * @throws \LinCmsTp5\exception\BaseException
+     * @throws \Exception
      */
     public static function getClass(string $file):?object
     {
@@ -101,7 +98,7 @@ trait DocTool
             $namespace = str_replace('/','\\',$namespace);
             return new $namespace();
         }catch (\Exception $exception){
-            throw new DocException(['message'=>$exception->getMessage()]);
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -119,7 +116,7 @@ trait DocTool
      * 获取php文件方法
      * @param $object
      * @return array|null
-     * @throws DocException
+     * @throws \Exception
      */
     public static function getPhpAction($object):?array
     {
@@ -130,7 +127,7 @@ trait DocTool
             $actions = array_diff($objectActions, $parentActions);
             return empty($actions) ? [] : $actions;
         }catch (\Exception $exception){
-            throw new DocException(['message'=>$exception->getMessage()]);
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -148,7 +145,7 @@ trait DocTool
      * @param string $model
      * @param array $fileMap
      * @return string|null
-     * @throws DocException
+     * @throws \Exception
      */
     public static function getValidateFile(string $model,array $fileMap = []):?string {
         try{
@@ -168,7 +165,7 @@ trait DocTool
             }
             return null;
         }catch (\Exception $exception){
-            throw new DocException(['message'=>$exception->getMessage()]);
+            throw new \Exception($exception->getMessage());
         }
     }
 

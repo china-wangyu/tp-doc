@@ -5,7 +5,6 @@
 
 namespace WangYu\lib;
 
-use WangYu\exception\DocException;
 
 /**
  * Class Api 获取API模块下的接口文件
@@ -28,14 +27,14 @@ class DocApi
     /**
      * 获取模块下的API集合
      * @return array|null
-     * @throws DocException
+     * @throws \Exception
      */
     public function get():?array
     {
         try{
             return $this->getApi(env('APP_PATH').$this->module.'/controller');
         }catch (\Exception $exception){
-            throw new DocException(['message'=>$exception->getMessage()]);
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -43,7 +42,7 @@ class DocApi
      * 获取API列表
      * @param string $path
      * @return array|null
-     * @throws DocException
+     * @throws \Exception
      */
     protected function getApi(string $path):?array
     {

@@ -22,7 +22,7 @@ class DocValidate
         if ($validate instanceof \WangYu\validate\BaseValidate){
             $this->validate = $validate;
         }else{
-            throw new DocException(['message'=>'数据类型异常~']);
+            throw new \Exception('数据类型异常~');
         }
 
     }
