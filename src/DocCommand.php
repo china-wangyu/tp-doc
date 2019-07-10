@@ -39,13 +39,24 @@ class DocCommand extends \think\console\Command
         $this->setName('doc:build')
             ->addArgument('module', Argument::OPTIONAL, "your API Folder,Examples: api = /application/api",'api')
             ->addArgument('filename', Argument::OPTIONAL, "your API to markdown filename",'api-md')
+            ->addArgument('force', Argument::OPTIONAL, "your API markdown filename is exist, backup and create", true)
             ->setDescription('API to Markdown');
     }
 
+    /**
+     * 执行函数
+     * @param Input $input
+     * @param Output $output
+     * @throws exception\DocException
+     */
     protected function execute(Input $input, Output $output)
     {
-        $doc = new Doc($input->getArgument('module'),$input->getArgument('filename'));
-        $doc->execute();
-        $output->writeln("Successful. Output Document Successful . File Path ：$doc->file ");
+        try{
+            $doc = new Doc($input->getArgument('module'),$input->getArgument('filename'),$input->getArgument('force'));
+            $doc->execute();
+            $output->writeln("Successful. Output Document Successful . File Path ：$doc->file ");
+        }catch (\Exception $exception){
+            $output->writeln("Error. Output Document Failed . error msg: ".$exception->getMessage());
+        }
     }
 }

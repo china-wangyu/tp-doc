@@ -15,6 +15,24 @@ trait DocTool
 
     public static $EXT = '.php';
 
+
+    /**
+     * 备份文件
+     * @param string $file
+     * @throws \Exception
+     */
+    public static function backupFile(string $file):void
+    {
+        try{
+            if(is_file($file)){
+                $newFile = dirname($file).'backup-'.date('YmDHis').'-'.basename($file);
+                if(!copy($file, $newFile)) throw new \Exception('备份文件失败~');
+            }
+        }catch (\Exception $exception){
+            throw new \Exception('备份文件失败~');
+        }
+    }
+
     /**
      * 写入数据
      * @param string $path 文件路径
