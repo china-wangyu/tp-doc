@@ -25,7 +25,7 @@ trait DocTool
     {
         try{
             if(is_file($file)){
-                $newFile = dirname($file).'backup-'.date('YmDHis').'-'.basename($file);
+                $newFile = dirname($file).'\backup-'.date('YmdHis').'-'.basename($file);
                 if(!copy($file, $newFile)) throw new \Exception('备份文件失败~');
             }
         }catch (\Exception $exception){
