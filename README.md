@@ -102,7 +102,8 @@ composer require wangyu/tp-doc
     
     Arguments:
       module                your API Folder,Examples: api = /application/api [default: "api"]
-      filename              your API to markdown filename
+      filename              your API to markdown filename , default = 'api-md'
+      force                 your API markdown filename is exist, backup and create , default = true
       
     Options:
       -h, --help            Display this help message
@@ -128,5 +129,5 @@ composer require wangyu/tp-doc
 # 引用技术
 
 - thinkphp5.1 [官网](https://www.kancloud.cn/manual/thinkphp5_1)
-- lin-cms-tp/validate-core [官网](https://packagist.org/packages/lin-cms-tp/validate-core)
-- lin-cms-tp/reflex-core [官网](https://packagist.org/packages/lin-cms-tp/reflex-core)
+- china_wangyu/tp-validate [官网](https://github.com/china-wangyu/tp-validate)
+- china_wangyu/php-reflex-core [官网](https://github.com/china-wangyu/php-reflex-core)
