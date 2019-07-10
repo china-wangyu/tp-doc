@@ -37,14 +37,14 @@ class Doc
      * Doc constructor.
      * @param string $module 模块名称
      * @param string $filename 文档名称
-     * @param bool $new 新建文件,如果存在，默认会更改以前的名称，然后根据文件的时间生成文件备份
+     * @param bool $force 新建文件,如果存在，默认会更改以前的名称，然后根据文件的时间生成文件备份
      * @throws DocException
      */
-    public function __construct(string $module = 'api',string $filename = 'api-md',bool $new = true)
+    public function __construct(string $module = 'api',string $filename = 'api-md',bool $force = true)
     {
         try{
             $this->setFilename($filename);
-            $this->backupFile($new);
+            $this->backupFile($force);
             $this->apis = (new DocApi($module))->get();
             $this->apis = DocReflex::toReflex($this->apis);
         }catch (\Exception $exception){
